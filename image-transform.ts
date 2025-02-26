@@ -49,6 +49,10 @@ namespace transformSprites {
             return this._origImage;
         }   // get image()
 
+        /**
+         * Sets the original image associated with the sprite, and updates the scaled image.
+         * @param {Image} image - New image for the SpriteWithRotation.
+         */
         set image(image: Image) {
             this._origImage = image;
             this._scaledImage = scale2x(image);
@@ -190,6 +194,7 @@ namespace transformSprites {
 
     /**
      * Rotate a sprite to a specific angle.
+     * Checks if the sprite's image differs from the rotated image, and updates if appropriate.
      * The sprite's image will be updated to the rotated image.
      * Angle is in degrees.
      * Positive change rotates clockwise; negative change rotates counterclockwise.
