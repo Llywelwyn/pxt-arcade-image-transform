@@ -46,13 +46,8 @@ namespace transformSprites {
          * @return {Image} Sprite's original image.
          */
         get image(): Image {
-            return this._origImage;
+            return this.image;
         }   // get image()
-
-        set image(image: Image) {
-            this._origImage = image;
-            rotateSprite(this, this._currRotation);
-        }
 
         /**
          * Returns the current angle of rotation for the sprite.
