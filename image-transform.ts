@@ -168,7 +168,9 @@ namespace transformSprites {
     export function changeRotation(sprite: Sprite, angleChange: number): void {
         if (!_spritesWithRotations[sprite.id]) {
             _spritesWithRotations[sprite.id] = new SpriteWithRotation(sprite, 0);
-        }   // if ( ! _spritesWithRotations[sprite.id] )
+        } else {
+            setImage(sprite, sprite.image.clone());
+        }
 
         rotateSprite(sprite, _spritesWithRotations[sprite.id].rotation + angleChange);
     }   // changeRotation()
@@ -199,7 +201,9 @@ namespace transformSprites {
     export function rotateSprite(sprite: Sprite, angle: number): void {
         if (!_spritesWithRotations[sprite.id]) {
             _spritesWithRotations[sprite.id] = new SpriteWithRotation(sprite, 0);
-        }   // if ( ! _spritesWithRotations[sprite.id] )
+        } else {
+            setImage(sprite, sprite.image.clone());
+        }
 
         _spritesWithRotations[sprite.id].rotation = angle;
         sprite.setImage(rotate(_spritesWithRotations[sprite.id], angle));
