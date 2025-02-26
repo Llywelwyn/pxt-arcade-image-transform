@@ -52,6 +52,7 @@ namespace transformSprites {
 
         set image(image: Image) {
             if (this._origImage == image && this._scaledImage == scale2x(image)) {
+                this.clean();
                 return;
             }
             this._origImage = image;
@@ -88,7 +89,11 @@ namespace transformSprites {
         }
 
         make_dirty(): void {
-            this._dirty = !this._dirty
+            this._dirty = true
+        }
+
+        clean(): void {
+            this._dirty = false
         }
     }   // class SpriteWithRotation
 
