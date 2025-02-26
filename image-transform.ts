@@ -154,7 +154,7 @@ namespace transformSprites {
     //% block="change rotation of %sprite(mySprite) by %angleChange degrees"
     //% sprite.shadow="variables_get" angleChange.defl=0
     export function changeRotation(sprite: Sprite, angleChange: number): void {
-        if (!_spritesWithRotations[sprite.id]) {
+        if (true) {
             _spritesWithRotations[sprite.id] = new SpriteWithRotation(sprite, 0);
         }   // if ( ! _spritesWithRotations[sprite.id] )
 
