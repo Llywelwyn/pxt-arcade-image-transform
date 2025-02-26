@@ -148,6 +148,12 @@ namespace transformSprites {
         }   // get magnitude()
     }   // class Vector
 
+    export function setImage(sprite: Sprite, image: Image): void {
+        if (!_spritesWithRotations[sprite.id]) {
+            _spritesWithRotations[sprite.id] = new SpriteWithRotation(sprite, 0);
+        }   // if ( ! _spritesWithRotations[sprite.id] )
+        _spritesWithRotations[sprite.id].image = image;
+    }
 
     /**
      * Increment the rotation of a sprite.
