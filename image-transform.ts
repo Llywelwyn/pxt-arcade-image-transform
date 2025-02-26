@@ -20,7 +20,6 @@ namespace transformSprites {
         private _currRotation: number;
         private _origImage: Image;
         private _scaledImage: Image;
-        private _dirty: boolean = true;
 
         /**
          * Initialize a sprite with rotation state.
@@ -51,13 +50,8 @@ namespace transformSprites {
         }   // get image()
 
         set image(image: Image) {
-            if (this._origImage == image && this._scaledImage == scale2x(image)) {
-                this.clean();
-                return;
-            }
             this._origImage = image;
             this._scaledImage = scale2x(image);
-            this.make_dirty()
         }
 
         /**
@@ -83,18 +77,6 @@ namespace transformSprites {
         get scaledImage(): Image {
             return this._scaledImage;
         }   // get scaledImage()
-
-        get dirty(): boolean {
-            return this._dirty;
-        }
-
-        make_dirty(): void {
-            this._dirty = true
-        }
-
-        clean(): void {
-            this._dirty = false
-        }
     }   // class SpriteWithRotation
 
     /**
@@ -166,13 +148,14 @@ namespace transformSprites {
         }   // get magnitude()
     }   // class Vector
 
-    export function setImage(sprite: Sprite, image: Image): void {
-        if (!_spritesWithRotations[sprite.id]) {
-            _spritesWithRotations[sprite.id] = new SpriteWithRotation(sprite, 0);
-        }   // if ( ! _spritesWithRotations[sprite.id] )
-        _spritesWithRotations[sprite.id].image = image;
-        rotateSprite(sprite, _spritesWithRotations[sprite.id].rotation);
-    }
+    // TODO
+    // export function setImage(sprite: Sprite, image: Image): void {
+    //     if (!_spritesWithRotations[sprite.id]) {
+    //         _spritesWithRotations[sprite.id] = new SpriteWithRotation(sprite, 0);
+    //     }   // if ( ! _spritesWithRotations[sprite.id] )
+    //     _spritesWithRotations[sprite.id].image = image;
+    //     rotateSprite(sprite, _spritesWithRotations[sprite.id].rotation);
+    // }
 
     /**
      * Increment the rotation of a sprite.
@@ -217,8 +200,10 @@ namespace transformSprites {
     export function rotateSprite(sprite: Sprite, angle: number): void {
         if (!_spritesWithRotations[sprite.id]) {
             _spritesWithRotations[sprite.id] = new SpriteWithRotation(sprite, 0);
-        } else if (_spritesWithRotations[sprite.id].dirty) {
-            setImage(sprite, sprite.image.clone());
+        } else if (
+            !sprite.image.clone().equals(rotate(_spritesWithRotations[sprite.id], _spritesWithRotations[sprite.id].rotation))
+        ) {
+            _spritesWithRotations[sprite.id].image = sprite.image.clone();
         }
 
         _spritesWithRotations[sprite.id].rotation = angle;
