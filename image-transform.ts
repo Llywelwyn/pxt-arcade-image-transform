@@ -50,6 +50,15 @@ namespace transformSprites {
         }   // get image()
 
         /**
+         * Sets the original image associated with the sprite, and updates the scaled image.
+         * @param {Image} image - New image for the SpriteWithRotation.
+         */
+        set image(image: Image) {
+            this._origImage = image;
+            this._scaledImage = scale2x(image);
+        }
+
+        /**
          * Returns the current angle of rotation for the sprite.
          * @return {number} Angle of rotation in degrees.
          */
@@ -143,7 +152,6 @@ namespace transformSprites {
         }   // get magnitude()
     }   // class Vector
 
-
     /**
      * Increment the rotation of a sprite.
      * The sprite's image will be updated with the new rotation.
@@ -154,9 +162,9 @@ namespace transformSprites {
     //% block="change rotation of %sprite(mySprite) by %angleChange degrees"
     //% sprite.shadow="variables_get" angleChange.defl=0
     export function changeRotation(sprite: Sprite, angleChange: number): void {
-        if (true) {
+        if (!_spritesWithRotations[sprite.id]) {
             _spritesWithRotations[sprite.id] = new SpriteWithRotation(sprite, 0);
-        }   // if ( ! _spritesWithRotations[sprite.id] )
+        }
 
         rotateSprite(sprite, _spritesWithRotations[sprite.id].rotation + angleChange);
     }   // changeRotation()
@@ -177,6 +185,7 @@ namespace transformSprites {
 
     /**
      * Rotate a sprite to a specific angle.
+     * Checks if the sprite's image differs from the rotated image, and updates if appropriate.
      * The sprite's image will be updated to the rotated image.
      * Angle is in degrees.
      * Positive change rotates clockwise; negative change rotates counterclockwise.
@@ -187,7 +196,11 @@ namespace transformSprites {
     export function rotateSprite(sprite: Sprite, angle: number): void {
         if (!_spritesWithRotations[sprite.id]) {
             _spritesWithRotations[sprite.id] = new SpriteWithRotation(sprite, 0);
-        }   // if ( ! _spritesWithRotations[sprite.id] )
+        } else if (
+            !sprite.image.clone().equals(rotate(_spritesWithRotations[sprite.id], _spritesWithRotations[sprite.id].rotation))
+        ) {
+            _spritesWithRotations[sprite.id].image = sprite.image.clone();
+        }
 
         _spritesWithRotations[sprite.id].rotation = angle;
         sprite.setImage(rotate(_spritesWithRotations[sprite.id], angle));
