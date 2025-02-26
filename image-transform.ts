@@ -181,8 +181,6 @@ namespace transformSprites {
     export function changeRotation(sprite: Sprite, angleChange: number): void {
         if (!_spritesWithRotations[sprite.id]) {
             _spritesWithRotations[sprite.id] = new SpriteWithRotation(sprite, 0);
-        } else if (_spritesWithRotations[sprite.id].dirty) {
-            setImage(sprite, sprite.image.clone());
         }
 
         rotateSprite(sprite, _spritesWithRotations[sprite.id].rotation + angleChange);
