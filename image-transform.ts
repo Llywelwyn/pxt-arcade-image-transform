@@ -49,6 +49,11 @@ namespace transformSprites {
             return this._origImage;
         }   // get image()
 
+        set image(image: Image) {
+            this._origImage = image;
+            rotateSprite(this, this._currRotation);
+        }
+
         /**
          * Returns the current angle of rotation for the sprite.
          * @return {number} Angle of rotation in degrees.
@@ -154,7 +159,7 @@ namespace transformSprites {
     //% block="change rotation of %sprite(mySprite) by %angleChange degrees"
     //% sprite.shadow="variables_get" angleChange.defl=0
     export function changeRotation(sprite: Sprite, angleChange: number): void {
-        if (true) {
+        if (!_spritesWithRotations[sprite.id]) {
             _spritesWithRotations[sprite.id] = new SpriteWithRotation(sprite, 0);
         }   // if ( ! _spritesWithRotations[sprite.id] )
 
@@ -185,7 +190,7 @@ namespace transformSprites {
     //% block="set rotation of %sprite(mySprite) to %angle degrees"
     //% sprite.shadow="variables_get" angle.defl=0
     export function rotateSprite(sprite: Sprite, angle: number): void {
-        if (true) {
+        if (!_spritesWithRotations[sprite.id]) {
             _spritesWithRotations[sprite.id] = new SpriteWithRotation(sprite, 0);
         }   // if ( ! _spritesWithRotations[sprite.id] )
 
