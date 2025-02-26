@@ -20,6 +20,7 @@ namespace transformSprites {
         private _currRotation: number;
         private _origImage: Image;
         private _scaledImage: Image;
+        private _dirty: boolean = true;
 
         /**
          * Initialize a sprite with rotation state.
@@ -50,8 +51,12 @@ namespace transformSprites {
         }   // get image()
 
         set image(image: Image) {
+            if (this._origImage == image && this._scaledImage == scale2x(image)) {
+                return;
+            }
             this._origImage = image;
             this._scaledImage = scale2x(image);
+            this.make_dirty()
         }
 
         /**
@@ -77,6 +82,14 @@ namespace transformSprites {
         get scaledImage(): Image {
             return this._scaledImage;
         }   // get scaledImage()
+
+        get dirty(): boolean {
+            return this._dirty;
+        }
+
+        make_dirty(): void {
+            this._dirty = !this._dirty
+        }
     }   // class SpriteWithRotation
 
     /**
@@ -168,7 +181,7 @@ namespace transformSprites {
     export function changeRotation(sprite: Sprite, angleChange: number): void {
         if (!_spritesWithRotations[sprite.id]) {
             _spritesWithRotations[sprite.id] = new SpriteWithRotation(sprite, 0);
-        } else {
+        } else if (_spritesWithRotations[sprite.id].dirty) {
             setImage(sprite, sprite.image.clone());
         }
 
@@ -201,7 +214,7 @@ namespace transformSprites {
     export function rotateSprite(sprite: Sprite, angle: number): void {
         if (!_spritesWithRotations[sprite.id]) {
             _spritesWithRotations[sprite.id] = new SpriteWithRotation(sprite, 0);
-        } else {
+        } else if (_spritesWithRotations[sprite.id].dirty) {
             setImage(sprite, sprite.image.clone());
         }
 
