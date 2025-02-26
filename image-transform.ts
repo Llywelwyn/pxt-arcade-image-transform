@@ -51,6 +51,7 @@ namespace transformSprites {
 
         set image(image: Image) {
             this._origImage = image;
+            this._scaledImage = scale2x(image);
         }
 
         /**
