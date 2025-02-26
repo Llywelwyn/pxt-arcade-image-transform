@@ -51,7 +51,6 @@ namespace transformSprites {
 
         set image(image: Image) {
             this._origImage = image;
-            rotateSprite(this, this._currRotation);
         }
 
         /**
@@ -153,6 +152,7 @@ namespace transformSprites {
             _spritesWithRotations[sprite.id] = new SpriteWithRotation(sprite, 0);
         }   // if ( ! _spritesWithRotations[sprite.id] )
         _spritesWithRotations[sprite.id].image = image;
+        rotateSprite(sprite, _spritesWithRotations[sprite.id].rotation);
     }
 
     /**
