@@ -46,8 +46,13 @@ namespace transformSprites {
          * @return {Image} Sprite's original image.
          */
         get image(): Image {
-            return this.image;
+            return this._origImage;
         }   // get image()
+
+        set image(image: Image) {
+            this._origImage = image;
+            rotateSprite(this, this._currRotation);
+        }
 
         /**
          * Returns the current angle of rotation for the sprite.
@@ -142,6 +147,13 @@ namespace transformSprites {
             return this._mag;
         }   // get magnitude()
     }   // class Vector
+
+    export function setImage(sprite: Sprite, image: Image): void {
+        if (!_spritesWithRotations[sprite.id]) {
+            _spritesWithRotations[sprite.id] = new SpriteWithRotation(sprite, 0);
+        }   // if ( ! _spritesWithRotations[sprite.id] )
+        _spritesWithRotations[sprite.id].image = image;
+    }
 
     /**
      * Increment the rotation of a sprite.
