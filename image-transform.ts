@@ -153,6 +153,19 @@ namespace transformSprites {
     }   // class Vector
 
     /**
+     * Updates a Sprite's SpriteWithRotation analogue, to ensure
+     * the sprite appears with the correct rotation after manually
+     * modifying its image.
+     * Call this (or any image-transform fn) after changing a Sprite's visuals.
+     */
+    //% blockId=transform_update
+    //% block="updates the image of %sprite(mySprite) to the correct rotation"
+    //% sprite.shadow="variables_get"
+    export function update(sprite: Sprite): void {
+       changeRotation(sprite, 0);
+    }
+
+    /**
      * Increment the rotation of a sprite.
      * The sprite's image will be updated with the new rotation.
      * Angle is in degrees.
