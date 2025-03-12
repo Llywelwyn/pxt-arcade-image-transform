@@ -179,10 +179,10 @@ namespace transformSprites {
     }
 
     /**
-     * Updates a Sprite's SpriteWithRotation analogue, to ensure
-     * the sprite appears with the correct rotation after manually
-     * modifying its image.
-     * Call this (or any image-transform fn) after changing a Sprite's visuals.
+     * Updates the image of a sprite to the correct rotation.
+     * After changing a rotated sprite's image, either rotate
+     * the sprite or call this function to make sure the image
+     * works properly.
      */
     //% blockId=transform_update
     //% block="updates the image of %sprite(mySprite) to the correct rotation"
