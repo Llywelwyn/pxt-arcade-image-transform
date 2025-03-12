@@ -170,7 +170,7 @@ namespace transformSprites {
      * Compares two sprites' images to see if they are the same.
      */
     //% blockId=transform_compare_images
-    //% block="compare images of %sprite(mySprite) and %otherSprite(mySprite)"
+    //% block="compare images of %sprite(mySprite) and %otherSprite(otherSprite)"
     //% sprite.shadow="variables_get" otherSprite.shadow="variables_get"
     export function compareImages(sprite: Sprite, otherSprite: Sprite): boolean {
         let image1 = originalImage(sprite);
