@@ -153,6 +153,32 @@ namespace transformSprites {
     }   // class Vector
 
     /**
+     * Fetches a Sprite's original image, before any rotations.
+     */
+    //% blockId=transform_original_image
+    //% block="fetches the unrotated image of %sprite(mySprite)"
+    //% sprite.shadow="variables_get"
+    export function originalImage(sprite: Sprite): Image {
+        if (!_spritesWithRotations[sprite.id]) {
+            return sprite.image;
+        } else {
+            return _spritesWithRotations[sprite.id].image;
+        }
+    }
+
+    /**
+     * Compares two sprites' images to see if they are the same.
+     */
+    //% blockId=transform_compare_images
+    //% block="compare images of %sprite(mySprite) and %otherSprite(mySprite)"
+    //% sprite.shadow="variables_get" otherSprite.shadow="variables_get"
+    export function compareImages(sprite: Sprite, otherSprite: Sprite): boolean {
+        let image1 = originalImage(sprite);
+        let image2 = originalImage(otherSprite);
+        return image1.equals(image2);
+    }
+
+    /**
      * Updates a Sprite's SpriteWithRotation analogue, to ensure
      * the sprite appears with the correct rotation after manually
      * modifying its image.
@@ -162,7 +188,7 @@ namespace transformSprites {
     //% block="updates the image of %sprite(mySprite) to the correct rotation"
     //% sprite.shadow="variables_get"
     export function update(sprite: Sprite): void {
-       changeRotation(sprite, 0);
+        changeRotation(sprite, 0);
     }
 
     /**
